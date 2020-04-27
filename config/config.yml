@@ -1,0 +1,6 @@
+mongodb:
+  host: localhost
+  port: 27010
+  database: qcafe
+  user:
+  password:
