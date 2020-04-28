@@ -2,7 +2,9 @@ package dbs
 
 import (
 	"fmt"
+	"github.com/labstack/gommon/log"
 	"gopkg.in/mgo.v2"
+	"qcafe/config"
 	"time"
 )
 
@@ -10,14 +12,16 @@ var MongoSession *mgo.Session
 
 func init() {
 	info := &mgo.DialInfo{
-		Addrs:    []string{"localhost:27017"},
+		Addrs:    []string{fmt.Sprintf("%s:%d", config.Config.MongoDB.Host, config.Config.MongoDB.Port)},
 		Timeout:  60 * time.Second,
-		Database: "admin",
+		Database: config.Config.MongoDB.AuthDatabase,
+		Username: config.Config.MongoDB.User,
+		Password: config.Config.MongoDB.Password,
 	}
 	mgoSession, err := mgo.DialWithInfo(info)
 
 	if err != nil {
-		fmt.Println("Cannot connect to Mongo DB")
+		log.Fatal("Cannot connect to Mongo DB")
 	}
 
 	MongoSession = mgoSession

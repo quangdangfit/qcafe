@@ -51,6 +51,7 @@ func CreateProduct(data models.Product) models.Product {
 
 	return result
 }
+
 func UpdateProductByCode(code string, data models.Product) models.Product {
 	sessionClone := MongoSession.Copy()
 	defer sessionClone.Close()
@@ -67,4 +68,17 @@ func UpdateProductByCode(code string, data models.Product) models.Product {
 	}
 
 	return result
+}
+
+func DeleteProductByCode(code string) {
+	sessionClone := MongoSession.Copy()
+	defer sessionClone.Close()
+	collection := sessionClone.DB("qcafe").C("product")
+
+	selector := bson.M{"code": code}
+	var err = collection.Remove(selector)
+
+	if err != nil {
+		log.Error(err)
+	}
 }

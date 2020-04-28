@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 	"net/http"
 	"qcafe/dbs"
 	"qcafe/models"
@@ -23,7 +23,7 @@ func CreateProduct(c echo.Context) error {
 	products := models.Product{}
 
 	if err := c.Bind(&products); err != nil {
-		fmt.Println("Cannot bind body to product")
+		log.Error("Cannot bind body to product")
 	}
 
 	result := dbs.CreateProduct(products)
@@ -35,9 +35,18 @@ func UpdateProductByCode(c echo.Context) error {
 	products := models.Product{}
 
 	if err := c.Bind(&products); err != nil {
-		fmt.Println("Cannot bind body to product")
+		log.Error("Cannot bind body to product")
 	}
 
 	result := dbs.UpdateProductByCode(code, products)
 	return c.JSON(http.StatusOK, result)
+}
+
+func DeleteProductByCode(c echo.Context) error {
+	code := c.Param("code")
+	dbs.DeleteProductByCode(code)
+
+	return c.JSON(http.StatusOK, map[string]string{
+		"status": "deleted",
+	})
 }

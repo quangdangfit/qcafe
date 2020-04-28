@@ -12,4 +12,5 @@ func SetRouters(e *echo.Echo) {
 	routers.GET("/products/:code", controllers.GetProductByCode)
 	routers.POST("/products", controllers.CreateProduct)
 	routers.PUT("/products/:code", controllers.UpdateProductByCode)
+	routers.DELETE("/products/:code", controllers.DeleteProductByCode)
 }
