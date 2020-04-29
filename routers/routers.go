@@ -13,4 +13,10 @@ func SetRouters(e *echo.Echo) {
 	routers.POST("/products", controllers.CreateProduct)
 	routers.PUT("/products/:code", controllers.UpdateProductByCode)
 	routers.DELETE("/products/:code", controllers.DeleteProductByCode)
+
+	routers.GET("/categories", controllers.GetCategories)
+	routers.GET("/categories/:code", controllers.GetCategoryByCode)
+	routers.POST("/categories", controllers.CreateCategory)
+	routers.PUT("/categories/:code", controllers.UpdateCategoryByCode)
+	routers.DELETE("/categories/:code", controllers.DeleteCategoryByCode)
 }

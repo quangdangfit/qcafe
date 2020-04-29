@@ -15,8 +15,8 @@ func GetProducts(c echo.Context) error {
 
 func GetProductByCode(c echo.Context) error {
 	code := c.Param("code")
-	products := dbs.GetProductByCode(code)
-	return c.JSON(http.StatusOK, products)
+	product := dbs.GetProductByCode(code)
+	return c.JSON(http.StatusOK, product)
 }
 
 func CreateProduct(c echo.Context) error {

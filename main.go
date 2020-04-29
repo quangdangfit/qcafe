@@ -15,10 +15,14 @@ func main() {
 
 	routers.SetRouters(e)
 
+	// Start server
 	go func() {
-		port := 8080
-		log.Info("Starting at port: %d", port)
-		e.Start(":" + string(port))
+		port := "8080"
+		log.Info("Starting at port: " + port)
+		err := e.Start(":" + port)
+		if err != nil {
+			log.Error(err)
+		}
 	}()
 
 	// Wait for interrupt signal to gracefully shutdown the server with

@@ -21,7 +21,7 @@ func init() {
 	mgoSession, err := mgo.DialWithInfo(info)
 
 	if err != nil {
-		log.Fatal("Cannot connect to Mongo DB")
+		log.Fatal("Cannot connect to Database")
 	}
 
 	MongoSession = mgoSession
