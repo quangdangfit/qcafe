@@ -1,6 +1,6 @@
 package models
 
 type ProductCategory struct {
-	Code string `json:"code" bson:"code"`
-	Name string `json:"name" bson:"name"`
+	Code string `validate:"required";json:"code" bson:"code"`
+	Name string `validate:"required";json:"name" bson:"name"`
 }

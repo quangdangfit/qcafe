@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
+	"gopkg.in/go-playground/validator.v9"
 	"net/http"
 	"qcafe/dbs"
 	"qcafe/models"
@@ -20,13 +21,22 @@ func GetProductByCode(c echo.Context) error {
 }
 
 func CreateProduct(c echo.Context) error {
-	products := models.Product{}
+	product := models.Product{}
 
-	if err := c.Bind(&products); err != nil {
+	if err := c.Bind(&product); err != nil {
 		log.Error("Cannot bind body to product")
 	}
 
-	result := dbs.CreateProduct(products)
+	validate := validator.New()
+	err := validate.Struct(product)
+	if err != nil {
+		log.Error("SCHEDULE: Bad request: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"status": "BAD_REQUEST",
+		})
+	}
+
+	result := dbs.CreateProduct(product)
 	return c.JSON(http.StatusOK, result)
 }
 

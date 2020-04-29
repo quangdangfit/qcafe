@@ -1,11 +1,11 @@
 package models
 
 type Product struct {
-	Code        string          `json:"code" bson:"code"`
-	Category    ProductCategory `json:"category" bson:"category"`
+	Code        string          `validate:"required";json:"code" bson:"code"`
+	Category    ProductCategory `validate:"required";json:"category" bson:"category"`
 	Description string          `json:"description" bson:"description"`
-	ListedPrice float64         `json:"listed_price" bson:"listed_price"`
-	Price       float64         `json:"price" bson:"price"`
+	ListedPrice float64         `validate:"required";json:"listed_price" bson:"listed_price"`
+	Price       float64         `validate:"required";json:"price" bson:"price"`
 	Promotion   Promotion       `json:"promotion" bson:"promotion"`
 }
 
